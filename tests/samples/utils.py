@@ -35,12 +35,13 @@ def assert_envgroup_hostnames(resources, hostnames, index=0):
     assert len(envgroups) >= index+1
     assert set(envgroups[index]["values"]["hostnames"]) == set(hostnames)
 
-def assert_instance(resources, location, ip_range, index=0):
+def assert_instance(resources, location, ip_range=None, index=0):
     "Test Apigee Instance Resource"
     instances = resources_by_type(resources, "google_apigee_instance")
     assert len(instances) >= index+1
     assert instances[index]["values"]["location"] == location
-    assert instances[index]["values"]["ip_range"] == ip_range
+    if ip_range is not None:
+        assert instances[index]["values"]["ip_range"] == ip_range
 
 
 def assert_instance_attachment(resources, attachment_ids):

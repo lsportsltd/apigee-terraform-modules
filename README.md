@@ -25,6 +25,7 @@ To deploy the sample, first create a copy of the example variables and edit acco
 * [X with Shared VPC](samples/x-shared-vpc) for an Apigee X setup in a Shared VPC that is exposed via a global external L7 load balancer.
 * [X with Multi Region](samples/x-multi-region) for an Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
 * [X with IaC Automation Pipeline](samples/x-iac-pipeline) for an IaC Automation Pipeline Apigee X setup in a Shared VPC exposed in multiple GCP Regions via a global L7 load balancer. Note that the sample uses an EVAL Apigee X Organization and hence a single Apigee X Instance only. In case you have a PROD Apigee X Organization then you will be able to easily extend the sample accordingly.
+* [X with Non VPC Peering with external L7 LB and northbound PSC](samples/x-non-vpc-peering) for a basic Apigee X setup without VPC Peering requirements and expose northbound via global external L7 load balancer and a Private Service Connect (PSC) Network Endpoint Group (NEG) to connect to an Apigee instance's service attachment.
 
 ## Reusable Modules
 
