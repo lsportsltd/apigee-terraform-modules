@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-      
-ax_region       = "europe-west1" 
-billing_account = ""            
-billing_type    = "EVAL"        
-project_parent  = "organizations/406283053755"           
-      
-vpc_name        = "apigeexvpc"
-peering_range   = "10.1.0.0/16"
-support_range1  = "10.2.0.0/28"
+
+ax_region       = "europe-west1"
+billing_account = ""
+billing_type    = "EVAL"
+project_parent  = "organizations/406283053755"
+
+vpc_name       = "apigeexvpc"
+peering_range  = "10.1.0.0/16"
+support_range1 = "10.2.0.0/28"
 
 lb_name         = "apigeexlb"
 ssl_crt_domains = ["xyz.com"]
@@ -37,19 +37,19 @@ apigee_envgroups = {
 
 apigee_instances = {
   "euw1-instance" = {
-    region       = "europe-west1"    
-    ip_range     = "10.1.4.0/22"              
-    environments = ["test"] 
+    region       = "europe-west1"
+    ip_range     = "10.1.4.0/22"
+    environments = ["test"]
   },
 
 }
 
 apigee_environments = {
   "test" = {
-    display_name = "TEST" 
-    description  = ""              
+    display_name = "TEST"
+    description  = ""
     iam          = null
-    envgroups    = ["testgroup"] 
+    envgroups    = ["testgroup"]
 
   }
   # Add more environments if needed
@@ -68,7 +68,7 @@ exposure_subnets = [
 ]
 
 psc_subnets = [
-    {
+  {
     name               = "psc-subnet-1"
     ip_cidr_range      = "10.100.255.240/29"
     region             = "europe-west1"

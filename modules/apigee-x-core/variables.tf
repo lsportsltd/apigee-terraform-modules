@@ -36,9 +36,16 @@ variable "ax_region" {
   type        = string
 }
 
+variable "disable_vpc_peering" {
+  description = "Flag that specifies whether the VPC Peering through Private Service Access (Service Networking) should be disabled between the consumer network and Apigee."
+  type        = bool
+  default     = false
+}
+
 variable "network" {
-  description = "Network (self-link) to peer with the Apigee tennant project."
+  description = "Network (self-link) to peer with the Apigee tennant project. This is required only for VPC peering based setup through Private Service Access."
   type        = string
+  default     = null
 }
 
 variable "billing_type" {
@@ -75,7 +82,7 @@ variable "apigee_instances" {
   description = "Apigee Instances (only one instance for EVAL)."
   type = map(object({
     region               = string
-    ip_range             = string
+    ip_range             = optional(string, null)
     environments         = list(string)
     keyring_create       = optional(bool, true)
     keyring_name         = optional(string, null)

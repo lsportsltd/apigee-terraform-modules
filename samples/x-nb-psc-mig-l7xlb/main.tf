@@ -18,11 +18,11 @@ locals {
   subnet_region_name = { for subnet in var.exposure_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
-  psc_subnets = { for psc in var.psc_subnets : 
-    psc.name => psc 
+  psc_subnets = { for psc in var.psc_subnets :
+    psc.name => psc
   }
-  region_psc_map = {for psc  in var.psc_subnets : 
-    psc.region => psc.name 
+  region_psc_map = { for psc in var.psc_subnets :
+    psc.region => psc.name
   }
 
 }
@@ -40,7 +40,7 @@ module "vpc" {
   source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id = module.project.project_id
   name       = var.vpc_name
-  subnets    = [
+  subnets = [
     for subnet in concat(var.exposure_subnets, var.psc_subnets) :
     {
       "name"                = subnet.name
@@ -51,9 +51,9 @@ module "vpc" {
   ]
   psa_config = {
     ranges = {
-      apigee-range         = var.peering_range   
+      apigee-range          = var.peering_range
       apigee-support-range1 = var.support_range1
-      
+
       #add_more_support_ranges_per_instance_region
     }
   }
@@ -72,7 +72,7 @@ module "apigee-x-core" {
 
 
 resource "google_compute_address" "psc_endpoint_address" {
-  for_each = local.psc_subnets
+  for_each     = local.psc_subnets
   name         = "psc-ip-${each.value.region}"
   project      = module.project.project_id
   address_type = "INTERNAL"
@@ -81,7 +81,7 @@ resource "google_compute_address" "psc_endpoint_address" {
 }
 
 resource "google_compute_forwarding_rule" "psc_ilb_consumer" {
-  for_each = local.psc_subnets
+  for_each              = local.psc_subnets
   name                  = "psc-ea-${each.value.region}"
   project               = module.project.project_id
   region                = each.value.region
@@ -97,9 +97,9 @@ resource "google_compute_forwarding_rule" "psc_ilb_consumer" {
 
 data "google_compute_address" "int_psc_ips" {
   for_each = google_compute_address.psc_endpoint_address
-  name = each.value.name
-  region = each.value.region
-  project = module.project.project_id
+  name     = each.value.name
+  region   = each.value.region
+  project  = module.project.project_id
 }
 
 module "apigee-x-bridge-mig" {
